@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,7 +9,7 @@ void main() {
         title: const Text('Day 02'),
         backgroundColor: Colors.amber[300],
       ),
-      body: Body(),
+      body: const Body(),
     ),
   ));
 }
@@ -26,7 +23,7 @@ class Body extends StatelessWidget {
       // height: double.infinity,
       // width: double.infinity,
       color: Colors.amber[100],
-      child: StateWidgetExample(),
+      child: const StateWidgetExample(),
     );
   }
 }
