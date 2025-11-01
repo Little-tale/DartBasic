@@ -1,27 +1,35 @@
 import 'package:fast_app_base/common/common.dart';
-import 'package:fast_app_base/screen/main/tab/favorite/f_favorite.dart';
+import 'package:fast_app_base/screen/main/tab/benefit/f_benefit.dart';
 import 'package:fast_app_base/screen/main/tab/home/f_home.dart';
+import 'package:fast_app_base/screen/main/tab/stock/stock.dart';
+import 'package:fast_app_base/screen/main/tab/tossPay/toss_pay.dart';
 import 'package:flutter/material.dart';
 
 enum TabItem {
   home(Icons.home, '홈', HomeFragment()),
-  favorite(Icons.star, '즐겨찾기', FavoriteFragment(isShowBackButton: false));
+  benefit(Icons.star, '혜택', BenefitFragment()),
+  tossPay(Icons.payment, '토스페이', TossPayFragment()),
+  stock(Icons.candlestick_chart, '주식', StockFragment()),
+  allMenu(Icons.menu, '전체', BenefitFragment());
 
   final IconData activeIcon;
   final IconData inActiveIcon;
   final String tabName;
   final Widget firstPage;
 
-  const TabItem(this.activeIcon, this.tabName, this.firstPage, {IconData? inActiveIcon})
+  const TabItem(this.activeIcon, this.tabName, this.firstPage,
+      {IconData? inActiveIcon})
       : inActiveIcon = inActiveIcon ?? activeIcon;
 
-  BottomNavigationBarItem toNavigationBarItem(BuildContext context, {required bool isActivated}) {
+  BottomNavigationBarItem toNavigationBarItem(BuildContext context,
+      {required bool isActivated}) {
     return BottomNavigationBarItem(
         icon: Icon(
           key: ValueKey(tabName),
           isActivated ? activeIcon : inActiveIcon,
-          color:
-              isActivated ? context.appColors.iconButton : context.appColors.iconButtonInactivate,
+          color: isActivated
+              ? context.appColors.iconButton
+              : context.appColors.iconButtonInactivate,
         ),
         label: tabName);
   }
