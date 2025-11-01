@@ -67,6 +67,7 @@ dependencies:
   #ui - util
   # keyboard_utils: ^1.3.4
   keyboard_utils_plugin: ^1.1.1
+  timeago: ^3.7.1
 
   #network
   dio: ^5.0.0
@@ -114,6 +115,7 @@ flutter:
     - assets/image/benefit/
     - assets/image/credit_card/
     - assets/image/illustration/
+    - assets/image/notification/
     - assets/image/stock/
     - assets/translations/
     - assets/

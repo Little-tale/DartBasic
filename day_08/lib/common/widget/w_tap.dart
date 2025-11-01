@@ -5,7 +5,8 @@ class Tap extends StatelessWidget {
   final void Function()? onLongPress;
   final Widget child;
 
-  const Tap({Key? key, required this.onTap, required this.child, this.onLongPress})
+  const Tap(
+      {Key? key, required this.onTap, required this.child, this.onLongPress})
       : super(key: key);
 
   @override
@@ -17,6 +18,24 @@ class Tap extends StatelessWidget {
         onTap: onTap,
         onLongPress: onLongPress,
         child: child,
+      ),
+    );
+  }
+}
+
+extension TapExt on Widget {
+  Widget tap({
+    required VoidCallback onTap,
+    VoidCallback? onLongPress,
+    HitTestBehavior behavior = HitTestBehavior.opaque,
+  }) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        behavior: behavior,
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: this,
       ),
     );
   }
