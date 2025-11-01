@@ -109,7 +109,12 @@ flutter:
     - assets/image/splash/
     - assets/image/icon/
     - assets/image/flag/
-    - assets/image/darkmode/
+    - assets/image/flag/
+    - assets/image/bank/
+    - assets/image/benefit/
+    - assets/image/credit_card/
+    - assets/image/illustration/
+    - assets/image/stock/
     - assets/translations/
     - assets/
 
