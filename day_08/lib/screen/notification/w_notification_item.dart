@@ -1,5 +1,4 @@
 import 'package:fast_app_base/common/common.dart';
-import 'package:fast_app_base/screen/notification/d_notification.dart';
 import 'package:fast_app_base/screen/notification/vo/vo_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -42,7 +41,7 @@ class _NotificationItemWidgetState extends State<NotificationItemWidget> {
                 ),
                 widget.notificationObj.type.name.text
                     .size(12)
-                    .color(context.appColors.lessImportantText)
+                    .color(context.appColors.lessImportant)
                     .make(),
                 emptyExpanded,
                 timeago
