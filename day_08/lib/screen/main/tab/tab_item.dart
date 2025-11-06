@@ -1,7 +1,7 @@
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/screen/main/tab/benefit/f_benefit.dart';
 import 'package:fast_app_base/screen/main/tab/home/f_home.dart';
-import 'package:fast_app_base/screen/main/tab/stock/stock.dart';
+import 'package:fast_app_base/screen/main/tab/stock/f_stock.dart';
 import 'package:fast_app_base/screen/main/tab/tossPay/toss_pay.dart';
 import 'package:flutter/material.dart';
 
