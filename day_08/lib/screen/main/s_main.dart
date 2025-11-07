@@ -40,7 +40,7 @@ class MainScreenState extends State<MainScreen>
 
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
-    delay((1.5).seconds, () {
+    delay((1.5).n_seconds, () {
       FlutterNativeSplash.remove();
     });
   }

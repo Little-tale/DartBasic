@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin {
   // 라이브러리 인데 레이아웃이 다 잡혔을때 작동하도록 함.
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
-    delay((1.5).seconds, () {
+    delay((1.5).n_seconds, () {
       Nav.clearAllAndPush(const MainScreen());
     });
   }

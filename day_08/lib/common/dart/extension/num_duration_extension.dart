@@ -6,17 +6,17 @@
 /// 1.5.days // equivalent to Duration(hours: 36)
 /// ```
 extension NumDurationExtension on num {
-  Duration get microseconds => Duration(microseconds: round());
+  Duration get n_microseconds => Duration(microseconds: round());
 
-  Duration get ms => (this * 1000).microseconds;
+  Duration get n_ms => (this * 1000).n_microseconds;
 
-  Duration get milliseconds => (this * 1000).microseconds;
+  Duration get n_milliseconds => (this * 1000).n_microseconds;
 
-  Duration get seconds => (this * 1000 * 1000).microseconds;
+  Duration get n_seconds => (this * 1000 * 1000).n_microseconds;
 
-  Duration get minutes => (this * 1000 * 1000 * 60).microseconds;
+  Duration get n_minutes => (this * 1000 * 1000 * 60).n_microseconds;
 
-  Duration get hours => (this * 1000 * 1000 * 60 * 60).microseconds;
+  Duration get n_hours => (this * 1000 * 1000 * 60 * 60).n_microseconds;
 
-  Duration get days => (this * 1000 * 1000 * 60 * 60 * 24).microseconds;
+  Duration get n_days => (this * 1000 * 1000 * 60 * 60 * 24).n_microseconds;
 }

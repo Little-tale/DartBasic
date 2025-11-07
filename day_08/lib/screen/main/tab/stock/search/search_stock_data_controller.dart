@@ -9,14 +9,14 @@ abstract mixin class SearchStockDataProvider {
 
 class SearchStockDataController extends GetxController {
   List<SimpleStock> stocks = [];
-  List<String> searchHistoryList = [];
+  RxList<String> searchHistoryList = <String>[].obs;
   RxList<SimpleStock> autoCompleteList = <SimpleStock>[].obs;
 
   @override
   void onInit() {
-    super.onInit();
     searchHistoryList.addAll(['삼성전자', '엘지', '현대차', '넷플릭스']);
     loadLocalStockJson();
+    super.onInit();
   }
 
   Future<void> loadLocalStockJson() async {
