@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 class AnimatedAppBar extends StatefulWidget {
   final String title;
   final ScrollController controller;
+  final AnimationController animationController;
 
-  const AnimatedAppBar(this.title, {super.key, required this.controller});
+  const AnimatedAppBar(this.title,
+      {super.key, required this.controller, required this.animationController});
 
   @override
   State<AnimatedAppBar> createState() => _AnimatedAppBarState();
@@ -17,12 +19,25 @@ class _AnimatedAppBarState extends State<AnimatedAppBar> {
   final duration = 80.n_ms;
   double _scrollPosition = 0;
 
+  late CurvedAnimation animation = CurvedAnimation(
+      parent: widget.animationController, curve: Curves.bounceInOut);
+
   @override
   void initState() {
+    // ColorTween(end: Colors.red, begin: Colors.blue).animate(controller)
+    // controller.forward(); // 시작하라는 함수
+    // controller.reverse(); // 역재생 함수
+    // controller.repeat(); // 반복하는 함수
+    // controller.animateTo(target) // 특정 타겟 위치로;
+
     widget.controller.addListener(() {
       setState(() {
         _scrollPosition = widget.controller.position.pixels;
       });
+    });
+
+    widget.animationController.addListener(() {
+      setState(() {});
     });
     super.initState();
   }
@@ -70,6 +85,27 @@ class _AnimatedAppBarState extends State<AnimatedAppBar> {
                 direction: AxisDirection.left,
               ),
             ).p20(),
+          ),
+          Positioned.fill(
+            left: animation.value * 200,
+            child: TweenAnimationBuilder<Color?>(
+              duration: 1000.n_ms,
+              tween: ColorTween(
+                begin: Colors.green,
+                end: isTriggered ? Colors.orange : Colors.green,
+              ),
+              builder: (context, value, child) => ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  value ?? Colors.green,
+                  BlendMode.modulate,
+                ),
+                child: child,
+              ),
+              child: Image.asset(
+                "$basePath/icon/map_point.png",
+                height: 60,
+              ),
+            ),
           ),
           AnimatedContainer(
             duration: duration,
