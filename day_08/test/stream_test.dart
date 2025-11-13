@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/common.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +38,7 @@ void main() async {
     builder: (context, snapshot) {
       final count = snapshot.data;
       if (count == null) {
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       }
       return Text("$count");
 
@@ -63,15 +65,33 @@ void main() async {
 
   /// Stream 데이터 관찰 -> BroadcastStream
 
-  final broadcaseStream = countStream(4).asBroadcastStream();
+  final broadcastStream = countStream(4).asBroadcastStream();
 
-  broadcaseStream.listen((event) {
+  broadcastStream.listen((event) {
     print(event);
   });
   await sleepAsync(1.n_seconds);
-  broadcaseStream.listen((event) {
+  broadcastStream.listen((event) {
     print(event);
   });
+
+  // List와 iterable
+  final List list = ['blue', 'yellow', 'red'];
+
+  final iterator = list.iterator;
+
+  print(iterator.current);
+  iterator.moveNext(); // return bool
+  print(iterator.current);
+
+  for (final message in countIterable(5)) {
+    print(message);
+  }
+
+  // await for
+  await for (final message in countStream(3)) {
+    print(message);
+  }
 
   await sleepAsync(8.n_seconds);
 }
@@ -88,4 +108,11 @@ void addDataToTheSink(StreamController<int> controller) async {
     controller.sink.add(i);
     await sleepAsync(1.n_seconds);
   }
+}
+
+Iterable<String> countIterable(int max) sync* {
+  for (int i = 1; i <= max; i++) {
+    yield i.toString();
+  }
+  yield ' Good! bb';
 }
