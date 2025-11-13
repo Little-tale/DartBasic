@@ -1,13 +1,12 @@
 // MARK: List
-import 'dart:collection';
-import 'dart:developer';
-
 extension ListSwapExtensions<T> on List<T> {
   void swapAt(int from, int to) {
     final temp = this[from];
     this[from] = this[to];
     this[to] = temp;
   }
+
+  Stream<T> toStream() => Stream.fromIterable(this);
 }
 
 // MARK: Test
