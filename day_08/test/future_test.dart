@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:fast_app_base/common/common.dart';
+
 void main() async {
   // future의 기본 개념
   // 미래 즉 언젠가 주겠다를 약속
@@ -12,13 +14,15 @@ void main() async {
   });
   print("end");
   // future Timeout
-  await getObjects().timeout(const Duration(seconds: 1)).catchError((e) {
+  getObjects().timeout(const Duration(seconds: 1)).catchError((e, stackTrace) {
     print(e);
   }).then((value) {
     print(value);
   });
   // future Error Handling
   // futureOr
+  // Future 타입 또는 일반적인 타입으로 가능
+  // FutureOr<String> testFutureOr = "";
   await sleepAsync(Duration(seconds: 4));
 }
 
