@@ -1,4 +1,7 @@
-import 'package:fast_app_base/common/cli_common.dart';
+// ignore_for_file: avoid_print
+
+import 'dart:isolate';
+
 import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/widget/w_big_button.dart';
 import 'package:fast_app_base/common/widget/w_rounded_container.dart';
@@ -49,10 +52,12 @@ class _HomeFragmentState extends State<HomeFragment> {
                     width: 250,
                     child: RiveLikeButton(
                       isLike: isLike,
-                      onTapLike: (bool isLike) {
+                      onTapLike: (bool isLike) async {
                         setState(() {
                           this.isLike = isLike;
                         });
+                        // await veryHardIsolationJobSpawn();
+                        await veryHardIsolationJobRun();
                       },
                     ),
                   ),
@@ -134,5 +139,57 @@ class _HomeFragmentState extends State<HomeFragment> {
 
   void openDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();
+  }
+
+  // async
+  // Main Isolator 에서 수행됨 ->
+  int veryHardJob(int max) {
+    int count = 0;
+    for (int i = 0; i < 900000000; i++) {
+      count++;
+    }
+    return count;
+  }
+
+  Future<void> veryHardIsolationJobSpawn() async {
+    final errorPort = ReceivePort();
+
+    errorPort.listen((element) {
+      print(element);
+    });
+
+    final exitPort = ReceivePort();
+
+    exitPort.listen((message) {
+      print(message);
+    });
+
+    final progressListenPort = ReceivePort();
+    progressListenPort.listen((message) {
+      print(message);
+    });
+
+    await Isolate.spawn((port) {
+      int count = 0;
+      for (int i = 0; i < 900000000; i++) {
+        count++;
+
+        if (i % 900000000 == 0) {
+          port.send(count);
+        }
+      }
+    }, progressListenPort.sendPort,
+        onError: errorPort.sendPort, onExit: exitPort.sendPort);
+  }
+
+  Future<void> veryHardIsolationJobRun() async {
+    await Isolate.run<void>(() {
+      int count = 0;
+      for (int i = 0; i < 900000000; i++) {
+        count++;
+      }
+      print(count);
+      return;
+    });
   }
 }
