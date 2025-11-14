@@ -35,4 +35,17 @@ main() {
   for (final m in matches) {
     log(m.group(0) ?? ""); // 3, 2, 5
   }
+
+
+  // MARK: URI
+  final uri = Uri.parse('https://example.com:8080/users/123/profile?tab=info#section1');
+  
+  log('scheme        : ${uri.scheme}');        // https
+  log('host          : ${uri.host}');          // example.com
+  log('port          : ${uri.port}');          // 8080
+  log('path          : ${uri.path}');          // /users/123/profile
+  log('pathSegments  : ${uri.pathSegments}');  // [users, 123, profile]
+  log('query         : ${uri.query}');         // tab=info
+  log('queryParameters: ${uri.queryParameters}'); // {tab: info}
+  log('fragment      : ${uri.fragment}');
 }
