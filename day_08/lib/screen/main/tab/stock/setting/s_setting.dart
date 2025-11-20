@@ -113,7 +113,7 @@ class _SettingScreenState extends State<SettingScreen>
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
@@ -143,73 +143,73 @@ class _SettingScreenState extends State<SettingScreen>
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
               BigButton(
                 text: '오픈소스',
                 onTap: () async {
-                  Nav.push(OpensourceScreen());
+                  Nav.push(const OpensourceScreen());
                 },
               ),
             ],

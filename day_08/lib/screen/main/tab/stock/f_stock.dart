@@ -38,7 +38,7 @@ class _StockFragmentState extends State<StockFragment>
             ),
             ImageButton(
               callback: () {
-                Nav.push(SettingScreen());
+                Nav.push(const SettingScreen());
               },
               imagePath: '$basePath/icon/stock_settings.png',
             )
@@ -50,9 +50,9 @@ class _StockFragmentState extends State<StockFragment>
               title,
               tabBar,
               if (currentIndex == 0)
-                MyStockFragment()
+                const MyStockFragment()
               else
-                TodaysDiscoveryFragment()
+                const TodaysDiscoveryFragment()
             ],
           ),
         )

@@ -10,7 +10,7 @@ void main() {
   // ignore: unused_element
   int add2(int a, int b) => a + b;
   // ignore: unused_local_variable
-  final add3 = (int a, int b) => a + b;
+  int add3(int a, int b) => a + b;
 
   // 특징
   /// 1. 익명성

@@ -23,7 +23,7 @@ void main() async {
   // futureOr
   // Future 타입 또는 일반적인 타입으로 가능
   // FutureOr<String> testFutureOr = "";
-  await sleepAsync(Duration(seconds: 4));
+  await sleepAsync(const Duration(seconds: 4));
 }
 
 class EmptyClass {

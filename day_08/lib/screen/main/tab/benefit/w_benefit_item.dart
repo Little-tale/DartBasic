@@ -1,4 +1,3 @@
-import 'package:fast_app_base/common/constant/app_colors.dart';
 import 'package:fast_app_base/common/dart/extension/context_extension.dart';
 import 'package:fast_app_base/common/widget/w_height_and_width.dart';
 import 'package:fast_app_base/screen/main/tab/benefit/vo_benefit.dart';

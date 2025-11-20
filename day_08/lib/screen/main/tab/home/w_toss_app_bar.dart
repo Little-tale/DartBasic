@@ -14,7 +14,7 @@ class TossAppBar extends StatefulWidget {
 }
 
 class _TossAppBarState extends State<TossAppBar> {
-  bool _showRedDot = false;
+  final bool _showRedDot = false;
   int _tappingCount = 0;
 
   @override

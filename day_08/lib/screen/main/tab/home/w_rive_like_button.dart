@@ -46,7 +46,7 @@ class _RiveLikeButtonState extends State<RiveLikeButton> {
       },
       child: RiveAnimation.asset(
         "$baseRivePath/light_like2.riv",
-        stateMachines: ['State Machine 1'],
+        stateMachines: const ['State Machine 1'],
         onInit: (Artboard art) {
           controller =
               StateMachineController.fromArtboard(art, 'State Machine 1')!;
