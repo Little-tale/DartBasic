@@ -1,11 +1,13 @@
 import 'package:fast_app_base/common/common.dart';
-import 'package:fast_app_base/data/memory/todo_data_holder.dart';
+import 'package:fast_app_base/data/memory/bloc/todo_event.dart';
+// import 'package:fast_app_base/data/memory/todo_cubit.dart';
 import 'package:fast_app_base/data/memory/vo/todo_status.dart';
 import 'package:fast_app_base/data/memory/vo/vo_todo.dart';
 import 'package:fast_app_base/screen/main/tab/todo/w_fire.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TodoStatusWidget extends StatelessWidget with TodoDataProvider {
+class TodoStatusWidget extends StatelessWidget {
   final Todo todo;
 
   TodoStatusWidget(this.todo, {super.key});
@@ -15,7 +17,8 @@ class TodoStatusWidget extends StatelessWidget with TodoDataProvider {
     return Tap(
       onTap: () {
         // context.todoHolder.changeTodoStatus(todo);
-        todoData.changeTodoStatus(todo);
+        // context.readTodoBloc.changeTodoStatus(todo);
+        context.readTodoBloc.add(TodoStatusUpdateEvent(todo));
       },
       child: SizedBox(
         width: 50,
