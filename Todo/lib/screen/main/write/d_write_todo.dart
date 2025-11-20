@@ -8,34 +8,27 @@ import 'package:after_layout/after_layout.dart';
 import 'package:fast_app_base/data/memory/vo/vo_todo.dart';
 import 'package:fast_app_base/screen/main/write/vo_write_to_result.dart';
 import 'package:flutter/material.dart';
-import 'package:nav/dialog/dialog.dart';
+// import 'package:nav_hooks/dialog/dialog.dart';
+import 'package:nav_hooks/dialog/hook_dialog.dart';
 
-class WriteTodoDialog extends DialogWidget<WriteTodoResult> {
+class WriteTodoDialog extends HookDialogWidget<WriteTodoResult> {
   final Todo? todoForEdit;
 
   WriteTodoDialog({super.key, this.todoForEdit});
 
   @override
-  DialogState<WriteTodoDialog> createState() => _WriteTodoDialogState();
-}
-
-class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
-    with AfterLayoutMixin {
-  DateTime _selectedDate = DateTime.now();
-  final textController = TextEditingController();
-  final focusNode = FocusNode();
-
-  @override
-  void initState() {
-    if (widget.todoForEdit != null) {
-      _selectedDate = widget.todoForEdit!.dueDate;
-    }
-    textController.text = widget.todoForEdit?.title ?? '';
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final _selectedDate = useState(DateTime.now());
+    final textController = useTextEditingController();
+    final focusNode = useFocusNode();
+
+    useMemoized(() {
+      if (todoForEdit != null) {
+        _selectedDate.value = todoForEdit!.dueDate;
+        textController.text = todoForEdit?.title ?? '';
+      }
+      AppKeyboardUtil.show(context, focusNode);
+    });
     return BottomDialogScaffold(
         body: RoundedContainer(
       color: context.backgroundColor,
@@ -45,9 +38,9 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
             children: [
               '할일용 작성해주세요'.text.size(10).bold.make(),
               spacer,
-              _selectedDate.formattedDate.text.make(),
+              _selectedDate.value.formattedDate.text.make(),
               IconButton(
-                onPressed: _selectDate,
+                onPressed: () => _selectDate(context, _selectedDate),
                 icon: const Icon(
                   Icons.calendar_month,
                 ),
@@ -66,9 +59,10 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
               RoundButton(
                   text: '추가',
                   onTap: () {
-                    widget.hide(
+                    hide(
                       WriteTodoResult(
-                          dateTime: _selectedDate, text: textController.text),
+                          dateTime: _selectedDate.value,
+                          text: textController.text),
                     );
                   }),
             ],
@@ -78,23 +72,21 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
     ));
   }
 
-  void _selectDate() async {
+  bool get isEditMode => todoForEdit != null;
+
+  void _selectDate(
+      BuildContext context, ValueNotifier<DateTime> selectedDate) async {
     final date = await showDatePicker(
       context: context,
-      initialDate: _selectedDate,
+      initialDate: selectedDate.value,
       firstDate: DateTime.now().subtract(const Duration(days: 365)),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
 
     if (date != null) {
-      setState(() {
-        _selectedDate = date;
-      });
+      selectedDate.value = date;
     }
   }
-
-  @override
-  FutureOr<void> afterFirstLayout(BuildContext context) {
-    AppKeyboardUtil.show(context, focusNode);
-  }
+  // @override
+  // DialogState<WriteTodoDialog> createState() => _WriteTodoDialogState();
 }
