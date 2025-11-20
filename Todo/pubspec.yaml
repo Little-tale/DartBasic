@@ -79,6 +79,7 @@ dependencies:
   flutter_animate: ^4.5.2
   animations: ^2.1.0
   rive: ^0.13.20
+  flutter_riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:
