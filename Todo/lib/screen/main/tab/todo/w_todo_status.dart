@@ -33,7 +33,7 @@ class TodoStatusWidget extends ConsumerWidget {
               value: false,
               onChanged: null,
             ),
-          TodoStatus.ongoding => const Fire(),
+          TodoStatus.ongoing => const Fire(),
         },
       ),
     );

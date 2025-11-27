@@ -5,6 +5,7 @@ import 'package:fast_app_base/common/widget/scaffold/bottom_dialog_scaffold.dart
 import 'package:fast_app_base/common/widget/w_round_button.dart';
 import 'package:fast_app_base/common/widget/w_rounded_container.dart';
 import 'package:after_layout/after_layout.dart';
+import 'package:fast_app_base/data/local/local_db.dart';
 import 'package:fast_app_base/data/memory/vo/vo_todo.dart';
 import 'package:fast_app_base/screen/main/write/vo_write_to_result.dart';
 import 'package:flutter/material.dart';
@@ -59,11 +60,10 @@ class WriteTodoDialog extends HookDialogWidget<WriteTodoResult> {
               RoundButton(
                   text: '추가',
                   onTap: () {
-                    hide(
-                      WriteTodoResult(
-                          dateTime: _selectedDate.value,
-                          text: textController.text),
-                    );
+                    final result = WriteTodoResult(
+                        dateTime: _selectedDate.value,
+                        text: textController.text);
+                    hide(result);
                   }),
             ],
           )

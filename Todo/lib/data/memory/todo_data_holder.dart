@@ -25,13 +25,13 @@ class TodoDataHolder extends StateNotifier<List<Todo>> {
   void changeTodoStatus(Todo todo) async {
     switch (todo.status) {
       case TodoStatus.incomplete:
-        todo.status = TodoStatus.ongoding;
-      case TodoStatus.ongoding:
+        todo.status = TodoStatus.ongoing;
+      case TodoStatus.ongoing:
         todo.status = TodoStatus.complete;
       case TodoStatus.complete:
         final result = await ConfirmDialog("정말요...?").show();
         result?.runIfSuccess((data) {
-          todo.status = TodoStatus.ongoding;
+          todo.status = TodoStatus.ongoing;
         });
     }
     // todoList.refresh();

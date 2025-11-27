@@ -1,5 +1,1 @@
-enum LocalDBErrorType {
-  alreadyExist,
-  notExist,
-  unknown,
-}
+enum LocalDBErrorType { alreadyExist, notExist, unknown, notInitialized }

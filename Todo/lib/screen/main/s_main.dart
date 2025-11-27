@@ -1,9 +1,12 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fast_app_base/data/memory/todo_data.dart';
 import 'package:fast_app_base/data/memory/todo_data_holder.dart';
 import 'package:fast_app_base/screen/main/tab/tab_item.dart';
 import 'package:fast_app_base/screen/main/tab/tab_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/instance_manager.dart';
 
 import '../../common/common.dart';
 import 'w_menu_drawer.dart';
@@ -16,7 +19,7 @@ class MainScreen extends ConsumerStatefulWidget {
 }
 
 class MainScreenState extends ConsumerState<MainScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, TodoDataProvider {
   TabItem _currentTab = TabItem.todo;
   final tabs = [TabItem.todo, TabItem.search];
   final List<GlobalKey<NavigatorState>> navigatorKeys = [];
@@ -58,6 +61,7 @@ class MainScreenState extends ConsumerState<MainScreen>
             // context.todoHolder.addTodo();
             // todoData.addTodo();
             ref.todoHolder.addTodo();
+            // todoData.addTodo(context);
           },
           child: const Icon(EvaIcons.plus),
         ),
@@ -175,4 +179,8 @@ class MainScreenState extends ConsumerState<MainScreen>
       navigatorKeys.add(GlobalKey<NavigatorState>());
     }
   }
+}
+
+mixin class TodoDataProvider {
+  // late final TodoData todoData = Get.find();
 }

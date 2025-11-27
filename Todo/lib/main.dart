@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_app_base/common/data/preference/app_shared_preference.dart';
+import 'package:fast_app_base/data/local/local_db.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';
@@ -11,6 +12,8 @@ void main() async {
   await AppPreferences.init();
 
   await AppSharedPreference.init();
+  await LocalDB.init();
+
   AppSharedPreference.instance.setCount(0);
 
   runApp(EasyLocalization(
