@@ -2,21 +2,23 @@ import 'package:fast_app_base/screen/main/fab/w_floating_daangn_button.dart';
 import 'package:fast_app_base/screen/main/tab/tab_item.dart';
 import 'package:fast_app_base/screen/main/tab/tab_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/common.dart';
-import 'w_menu_drawer.dart';
+// import 'w_menu_drawer.dart';
 
-class MainScreen extends StatefulWidget {
+final currentTabProvider = StateProvider((ref) => TabItem.home);
+
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => MainScreenState();
+  ConsumerState<MainScreen> createState() => MainScreenState();
 }
 
-class MainScreenState extends State<MainScreen>
+class MainScreenState extends ConsumerState<MainScreen>
     with SingleTickerProviderStateMixin {
-  TabItem _currentTab = TabItem.home;
   final tabs = TabItem.values;
   late final List<GlobalKey<NavigatorState>> navigatorKeys =
       TabItem.values.map((e) => GlobalKey<NavigatorState>()).toList();
@@ -31,6 +33,8 @@ class MainScreenState extends State<MainScreen>
   static double get bottomNavigationBarBorderRadius => 30.0;
   static const bottomNavigationBarHeight = 60.0;
 
+  TabItem get _currentTab => ref.watch(currentTabProvider);
+
   @override
   void initState() {
     super.initState();
@@ -38,33 +42,36 @@ class MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: PopScope(
-        canPop: isRootPage,
-        onPopInvokedWithResult: _handleBackPressed,
-        child: Material(
-          child: Stack(
-            children: [
-              Scaffold(
-                extendBody: extendBody, //bottomNavigationBar 아래 영역 까지 그림
-                drawer: const MenuDrawer(),
-                body: Container(
-                  color:
-                      context.appColors.seedColor.getMaterialColorValues[200],
-                  padding: EdgeInsets.only(
-                      bottom: extendBody
-                          ? 60 - bottomNavigationBarBorderRadius
-                          : 0),
-                  child: SafeArea(
-                    bottom: !extendBody,
-                    child: pages,
-                  ),
+    return PopScope(
+      canPop: isRootPage,
+      onPopInvokedWithResult: _handleBackPressed,
+      child: Material(
+        child: Stack(
+          children: [
+            Scaffold(
+              extendBody: extendBody, //bottomNavigationBar 아래 영역 까지 그림
+              // drawer: const MenuDrawer(),
+              body: Container(
+                // color: context.appColors.seedColor.getMaterialColorValues[200],
+                padding: EdgeInsets.only(
+                    bottom: extendBody
+                        ? bottomNavigationBarHeight -
+                            bottomNavigationBarBorderRadius
+                        : 0),
+                child: SafeArea(
+                  bottom: !extendBody,
+                  child: pages,
                 ),
-                bottomNavigationBar: _buildBottomNavigationBar(context),
               ),
-              FloatingDaangnButton(),
-            ],
-          ),
+              bottomNavigationBar: _buildBottomNavigationBar(context),
+            ),
+            if (_currentTab != TabItem.chat)
+              AnimatedOpacity(
+                opacity: _currentTab != TabItem.chat ? 1 : 0,
+                duration: 500.ms,
+                child: const FloatingDaangnButton(),
+              )
+          ],
         ),
       ),
     );
@@ -101,7 +108,8 @@ class MainScreenState extends State<MainScreen>
 
   Widget _buildBottomNavigationBar(BuildContext context) {
     return Container(
-      height: bottomNavigationBarHeight,
+      height: bottomNavigationBarHeight +
+          context.viewPaddingBottom, // bottomTabBar Height Issue Fix
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(color: Colors.black26, spreadRadius: 0, blurRadius: 10),
@@ -127,20 +135,24 @@ class MainScreenState extends State<MainScreen>
   }
 
   List<BottomNavigationBarItem> navigationBarItems(BuildContext context) {
+    final currentTab = ref.watch(currentTabProvider);
+    final currentIndex = tabs.indexOf(currentTab);
+
     return tabs
         .mapIndexed(
           (tab, index) => tab.toNavigationBarItem(
             context,
-            isActivated: _currentIndex == index,
+            isActivated: currentIndex == index,
           ),
         )
         .toList();
   }
 
   void _changeTab(int index) {
-    setState(() {
-      _currentTab = tabs[index];
-    });
+    ref.read(currentTabProvider.notifier).state = tabs[index];
+    // setState(() {
+    //   _currentTab = tabs[index];
+    // });
   }
 
   BottomNavigationBarItem bottomItem(bool activate, IconData iconData,

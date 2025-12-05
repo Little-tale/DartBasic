@@ -83,6 +83,8 @@ dependencies:
   rive: ^0.13.20
   flutter_riverpod: ^2.6.1
   web_socket_channel: ^3.0.3
+  flutter_hooks: ^0.20.5
+  hooks_riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:

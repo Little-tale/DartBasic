@@ -12,7 +12,7 @@ class FloatingButtonStateNotifier extends StateNotifier<FloatingButtonState> {
     return super.updateShouldNotify(old, current);
   }
 
-  void onTapButton() {
+  void toggleMenu() {
     final isExpended = state.isExpanded;
     final isSmall = state.isSmall;
 

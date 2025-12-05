@@ -47,4 +47,8 @@ abstract class AbstractThemeColors {
   Color get blueButtonBackground => AppColors.darkBlue;
 
   Color get floatingActionLayer => const Color.fromARGB(255, 37, 37, 39);
+
+  Color get lessImportantColor => const Color.fromARGB(255, 116, 116, 116);
+
+  Color get unreadColor => const Color.fromARGB(255, 57, 57, 57);
 }
