@@ -1,5 +1,5 @@
 import 'package:fast_app_base/common/dart/extension/num_duration_extension.dart';
-import 'package:fast_app_base/entity/post/vo_product_post.dart';
+import 'package:fast_app_base/entity/post/vo_simple_product_post.dart';
 import 'package:fast_app_base/entity/product/product_status.dart';
 import 'package:fast_app_base/entity/product/vo_product.dart';
 import 'package:fast_app_base/entity/user/vo_address.dart';
@@ -34,7 +34,6 @@ final product1 = ProductEntity(
   user1,
   'iPhone18',
   1400000,
-  "미개봉 새상품",
   ProductStatus.normal,
   [
     picSum(100),
@@ -47,7 +46,6 @@ final product2 = ProductEntity(
   user2,
   'ToppingOTG 2x2',
   200000,
-  "잠깐 방송하다가 팔아요... 택포가격입니다.",
   ProductStatus.normal,
   [
     picSum(100),
@@ -60,7 +58,6 @@ final product3 = ProductEntity(
   user3,
   '무료나눔',
   0,
-  "직거래만 받아요",
   ProductStatus.normal,
   [
     picSum(100),
@@ -69,7 +66,8 @@ final product3 = ProductEntity(
   ],
 );
 
-final post1 = ProductPostEntity(
+final post1 = SimpleProductPostEntity(
+  1,
   product1.user,
   product1,
   'asasdasd',
@@ -82,7 +80,8 @@ final post1 = ProductPostEntity(
   DateTime.now().subtract(30.minutes),
 );
 
-final post2 = ProductPostEntity(
+final post2 = SimpleProductPostEntity(
+  2,
   product2.user,
   product2,
   'ㅎㄷ',
@@ -95,7 +94,8 @@ final post2 = ProductPostEntity(
   DateTime.now().subtract(20.minutes),
 );
 
-final post3 = ProductPostEntity(
+final post3 = SimpleProductPostEntity(
+  3,
   product3.user,
   product3,
   '12ㅎㄴㅌ',

@@ -9,7 +9,7 @@ class ProductEntity with _$ProductEntity {
     final UserEntity user,
     final String name,
     final int price,
-    final String description,
+    // final String description,
     final ProductStatus status,
     final List<String> images,
   ) = _ProductEntity;
