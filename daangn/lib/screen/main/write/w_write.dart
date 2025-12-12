@@ -14,6 +14,7 @@ import 'package:fast_app_base/entity/user/vo_address.dart';
 import 'package:fast_app_base/screen/dialog/d_message.dart';
 import 'package:fast_app_base/screen/main/tab/home/post_detail/s_post_detail.dart';
 import 'package:fast_app_base/screen/main/write/d_select_image_source.dart';
+import 'package:fast_app_base/screen/main/write/w_select_image_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -113,22 +114,15 @@ class _WriteScreenState extends ConsumerState<WriteScreen>
       ),
       bottomSheet: isKeyboardOn
           ? null
-          : RoundButton(
-              text: isLoading ? '저장중' : '작성 완료',
-              isFullWidth: true,
-              borderRadius: 6,
-              isEnabled: isValid,
-              rightWidget: isLoading
-                  ? const SizedBox(
-                      width: 15,
-                      height: 15,
-                      child: CircularProgressIndicator(),
-                    ).pOnly(right: 80)
-                  : null,
+          : _BottomRButton(
+              isLoading: isLoading,
+              isValid: isValid,
               onTap: () {
                 final title = titleController.text;
-                final price = int.parse(priceController.text);
-                final desc = descriptionController.text;
+                final price = priceController.text.isNumber()
+                    ? int.parse(priceController.text)
+                    : 0;
+                final description = descriptionController.text;
                 setState(() {
                   isLoading = true;
                 });
@@ -157,8 +151,7 @@ class _WriteScreenState extends ConsumerState<WriteScreen>
                     simpleProductPost: simpleProductPost,
                   ),
                 );
-              },
-            ),
+              }),
     );
   }
 
@@ -166,6 +159,37 @@ class _WriteScreenState extends ConsumerState<WriteScreen>
       isNotBlank(titleController.text) &&
       isNotBlank(priceController.text) &&
       isNotBlank(descriptionController.text);
+}
+
+class _BottomRButton extends StatelessWidget {
+  final bool isLoading;
+  final bool isValid;
+
+  final VoidCallback onTap;
+
+  const _BottomRButton(
+      {required this.isLoading, required this.isValid, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    // Flutter 3.10 이상 바텀 SafeArea Bottom
+    // systemGestureInsets
+
+    return RoundButton(
+      text: isLoading ? '저장중' : '작성 완료',
+      isFullWidth: true,
+      borderRadius: 6,
+      isEnabled: isValid,
+      rightWidget: isLoading
+          ? const SizedBox(
+              width: 15,
+              height: 15,
+              child: CircularProgressIndicator(),
+            ).pOnly(right: 80)
+          : null,
+      onTap: onTap,
+    ).pOnly(bottom: context.viewGesturePaddingBottom);
+  }
 }
 
 class _ImageSelectWidget extends StatelessWidget {
@@ -219,41 +243,6 @@ class _ImageSelectWidget extends StatelessWidget {
                 ))
           ],
         ),
-      ),
-    );
-  }
-}
-
-class SelectImageButton extends StatelessWidget {
-  const SelectImageButton({
-    super.key,
-    required this.onTap,
-    required this.imageList,
-  });
-
-  final VoidCallback onTap;
-  final List<String> imageList;
-
-  @override
-  Widget build(BuildContext context) {
-    return Tap(
-      onTap: onTap,
-      child: SizedBox(
-        width: 80,
-        height: 80,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.camera_alt),
-            RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                  text: imageList.length.toString(),
-                  style: const TextStyle(color: Colors.orange)),
-              const TextSpan(text: '/10')
-            ])),
-          ],
-        ).box.rounded.border(color: Colors.grey).make(),
       ),
     );
   }
